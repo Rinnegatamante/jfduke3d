@@ -1647,11 +1647,13 @@ if (VOLUMEALL) {
             if (uinfo.button0 || KB_KeyPressed(sc_Y))
             {
                 KB_FlushKeyboardQueue();
+                CONTROL_ClearUserInput(&uinfo);
                 cmenu(100);
             }
             if (uinfo.button1 || KB_KeyPressed(sc_N))
             {
                 KB_ClearKeyDown(sc_N);
+                CONTROL_ClearUserInput(&uinfo);
                 if(ud.multimode < 2 && ud.recstat != 2)
                 {
                     ready2send = 1;
