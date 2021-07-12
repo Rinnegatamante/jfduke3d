@@ -143,7 +143,7 @@ void MusicStartup( void )
       }
    else
    {
-      buildprintf("Couldn't find selected sound card, or, error w/ sound card itself.\n");
+      /*buildprintf("Couldn't find selected sound card, or, error w/ sound card itself.\n");
 
       SoundShutdown();
       uninittimer();
@@ -153,7 +153,7 @@ void MusicStartup( void )
       KB_Shutdown();
       uninitgroupfile();
       //unlink("duke3d.tmp");
-      exit(-1);
+      exit(-1);*/
    }
 }
 

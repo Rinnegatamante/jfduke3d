@@ -53,7 +53,7 @@ int32 MixRate;
 int32 ReverseStereo;
 char MusicParams[BMAX_PATH] = {0};
 
-int32 UseJoystick = 0, UseMouse = 1;
+int32 UseJoystick = 1, UseMouse = 1;
 int32 RunMode;
 int32 AutoAim;  // JBF 20031125
 int32 ShowOpponentWeapons;

@@ -31,6 +31,45 @@
 #include "build.h"
 #include "grpscan.h"
 
+#include <dirent.h>
+
+char patched_fname[512];
+char *patch_fname(char *fname) {
+	if (strstr(fname, "ux0")) {
+		char *s = strstr(fname, ".");
+		if (s)
+			fname = s;
+		else
+			return fname;
+	}
+	
+	if (fname[0] == '.') {
+		char *s = strstr(fname, "/");
+		if (s)
+			fname = s + 1;
+		else
+			fname++;
+	}
+	sprintf(patched_fname, "ux0:data/jfduke3d/%s", fname);
+	return patched_fname;
+}
+
+int __wrap_access(const char *fname, int mode) {
+	return __real_access(patch_fname(fname), mode);
+}
+
+FILE *__wrap_fopen(char *fname, char *mode) {
+	return __real_fopen(patch_fname(fname), mode);
+}
+
+int __wrap_open(const char *fname, int mode) {
+	return __real_open(patch_fname(fname), mode);
+}
+
+DIR *__wrap_opendir(const char *fname) {
+	return __real_opendir(patch_fname(fname));
+}
+
 struct grpfile grpfiles[] = {
     { "Registered Version 1.3d",    0xBBC9CE44, 26524524, GAMEDUKE, "duke3d13.grp",       NULL, NULL },
     { "Registered Version 1.4",     0xF514A6AC, 44348015, GAMEDUKE, "duke3d14.grp",       NULL, NULL },

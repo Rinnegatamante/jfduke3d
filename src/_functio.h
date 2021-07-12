@@ -181,21 +181,21 @@ static char * mouseclickeddefaults[MAXMOUSEBUTTONS] =
 
 static char * joystickdefaults[MAXJOYBUTTONS] =
    {
-   "Fire",        // A
-   "Strafe",      // B
-   "Run",         // X
-   "Open",        // Y
-   "",            // Back
+   "Jump",        // Cross
+   "Open",      // Circle
+   "Crouch",         // Square
+   "Inventory_Right",        // Triangle
+   "Toggle_Crosshair",            // Select
    "",            // Guide
-   "",            // Start
+   "Show_Menu",            // Start
    "",            // L thumb
    "",            // R thumb
-   "",            // L shoulder
-   "",            // R shoulder
-   "Aim_Up",      // DP up
-   "Aim_Down",    // DP down
-   "Look_Left",   // DP left
-   "Look_Right",  // DP right
+   "Inventory_Left",            // L shoulder
+   "Fire",            // R shoulder
+   "Inventory",      // DP up
+   "Holster_Weapon",    // DP down
+   "Previous_Weapon",   // DP left
+   "Next_Weapon",  // DP right
    "",
    "",
    "",
@@ -219,9 +219,9 @@ static char * joystickdefaults[MAXJOYBUTTONS] =
 static char * joystickclickeddefaults[MAXJOYBUTTONS] =
    {
    "",            // A
-   "Inventory",   // B
-   "Jump",        // X
-   "Crouch",      // Y
+   "",   // B
+   "",        // X
+   "",      // Y
    "",            // Back
    "",            // Guide
    "",            // Start

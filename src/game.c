@@ -38,6 +38,21 @@ Modifications for JonoF's port by Jonathon Fowler (jf@jonof.id.au)
 
 #include "util_lib.h"
 
+#ifdef VITA
+#define MAX_CURDIR_PATH 512
+char cur_dir[MAX_CURDIR_PATH] = "ux0:data/jfduke3d/";
+
+char *Bgetcwd(char *buf, bsize_t size)
+{
+	if (buf != NULL) {
+        strncpy(buf, cur_dir, size);
+    }
+    return cur_dir;
+}
+int chdir(const char *path) {
+    return 0;
+}
+#endif
 
 #define TIMERUPDATESIZ 32
 
@@ -2955,8 +2970,8 @@ void displayrooms(short snum,int smoothratio)
             tiltcy = 200;
         } else {
             tiltcs = 2;
-            tiltcx = 640;
-            tiltcy = 480;
+            tiltcx = 960;
+            tiltcy = 544;
         }
 
                 walock[TILE_TILT] = 255;
@@ -7646,7 +7661,7 @@ int app_main(int argc, char const * const argv[])
     // "portable" by writing into the working directory
     if (access("user_profiles_disabled", F_OK) == 0) {
         char cwd[BMAX_PATH+1];
-        if (getcwd(cwd, sizeof(cwd))) {
+        if (Bgetcwd(cwd, sizeof(cwd))) {
             addsearchpath(cwd);
         }
     } else {
@@ -7664,7 +7679,7 @@ int app_main(int argc, char const * const argv[])
             , supportdir);
             asperr = addsearchpath(dirpath);
             if (asperr == -2) {
-                if (Bmkdir(dirpath, S_IRWXU) == 0) {
+                if (sceIoMkdir(dirpath, 0777) == 0) {
                     asperr = addsearchpath(dirpath);
                 } else {
                     asperr = -1;
@@ -7680,11 +7695,11 @@ int app_main(int argc, char const * const argv[])
     buildsetlogfile("duke3d.log");
 
     wm_setapptitle("JFDuke3D");
-    buildprintf("\nJFDuke3D\n"
+/*    buildprintf("\nJFDuke3D\n"
         "Based on Duke Nukem 3D by 3D Realms Entertainment.\n"
         "Additional improvements by Jonathon Fowler (http://www.jonof.id.au) and other contributors.\n"
         "See GPL.TXT for license terms.\n\n"
-        "Version %s.\nBuilt %s %s.\n", game_version, game_date, game_time);
+        "Version %s.\nBuilt %s %s.\n", game_version, game_date, game_time);*/
 
     if (preinitengine()) {
        wm_msgbox("Build Engine Initialisation Error",
@@ -7896,9 +7911,9 @@ int app_main(int argc, char const * const argv[])
         buildprintf("Failure setting video mode %dx%dx%d %s! Attempting safer mode...\n",
                 ScreenWidth,ScreenHeight,ScreenBPP,ScreenMode?"fullscreen":"windowed");
         ScreenMode = 0;
-        ScreenWidth = 640;
-        ScreenHeight = 480;
-        ScreenBPP = 8;
+        ScreenWidth = 960;
+        ScreenHeight = 544;
+        ScreenBPP = 32;
         setgamemode(ScreenMode,ScreenWidth,ScreenHeight,ScreenBPP);
     }
 
