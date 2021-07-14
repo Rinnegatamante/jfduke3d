@@ -9,7 +9,7 @@
 		<startup-image>startup.png</startup-image>
 	</gate>
 	
-	<frame id="frame1">
+	<frame id="frame3">
 		<liveitem>
 			<target>psla:-nam</target>
 			<text valign="bottom" align="left" text-align="left" word-wrap="off" ellipsis="on">

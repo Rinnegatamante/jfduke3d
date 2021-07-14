@@ -337,8 +337,10 @@ int main(int argc, char *argv[])
 		sceKernelExitProcess(0);
 	}
 	
-#ifndef NAM
-	// Checking if Wanton Destruction has been launched
+#ifdef NAM
+	sceIoRemove("ux0:data/jfduke3d/nam/grpfiles.cache");
+#else
+	// Checking if NAM has been launched
 	sceAppUtilInit(&(SceAppUtilInitParam){}, &(SceAppUtilBootParam){});
 	SceAppUtilAppEventParam eventParam;
 	memset(&eventParam, 0, sizeof(SceAppUtilAppEventParam));
