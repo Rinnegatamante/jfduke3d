@@ -337,7 +337,17 @@ int main(int argc, char *argv[])
 		sceKernelExitProcess(0);
 	}
 	
-	SceUID main_thread = sceKernelCreateThread("JFSW", psp2_main, 0x40, 0x800000, 0, 0, NULL);
+#ifndef NAM
+	// Checking if Wanton Destruction has been launched
+	sceAppUtilInit(&(SceAppUtilInitParam){}, &(SceAppUtilBootParam){});
+	SceAppUtilAppEventParam eventParam;
+	memset(&eventParam, 0, sizeof(SceAppUtilAppEventParam));
+	sceAppUtilReceiveAppEvent(&eventParam);
+	if (eventParam.type == 0x05)
+		sceAppMgrLoadExec("app0:/jfduke3d.bin", NULL, NULL);
+#endif
+	
+	SceUID main_thread = sceKernelCreateThread("JFDUKE3D", psp2_main, 0x40, 0x800000, 0, 0, NULL);
 	if (main_thread >= 0){
 		sceKernelStartThread(main_thread, 0, NULL);
 		sceKernelWaitThreadEnd(main_thread, NULL, NULL);

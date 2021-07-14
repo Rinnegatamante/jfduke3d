@@ -50,7 +50,11 @@ char *patch_fname(char *fname) {
 		else
 			fname++;
 	}
-	sprintf(patched_fname, "ux0:data/jfduke3d/%s", fname);
+#ifdef NAM
+	sprintf(patched_fname, "ux0:data/jfduke3d/nam/%s", fname);
+#else
+	sprintf(patched_fname, "ux0:data/jfduke3d/duke/%s", fname);
+#endif
 	return patched_fname;
 }
 
