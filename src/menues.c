@@ -32,6 +32,9 @@ Modifications for JonoF's port by Jonathon Fowler (jf@jonof.id.au)
 #include <sys/stat.h>
 #include <assert.h>
 
+#ifdef VITA
+#include <vitasdk.h>
+#endif
 
 struct savehead {
     char name[19];
@@ -3708,7 +3711,13 @@ if (PLUTOPAK) {
                     gametext(160,180,boardfilename,0,2+8+16);
 
                 x = strget((320>>1),184,&ud.savegame[current_menu-360][0],19, 999 );
-
+				if (x == 0) {
+					SceDateTime date;
+					sceRtcGetCurrentClockLocalTime(&date);
+					sprintf(&ud.savegame[current_menu-360][0], "%02d_%02d_%04d-%02d_%02d_%02d", date.day, date.month, date.year, date.hour, date.minute, date.second);
+					x = 1;
+				}
+				
                 if(x == -1)
                 {
             //        readsavenames();
